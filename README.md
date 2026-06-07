@@ -4,7 +4,8 @@ Debian 12 / Debian 13 多协议代理一键部署工具。
 
 面向中文 VPS 用户，尽量让不太会写代码的人，也能把常见协议跑起来。
 目前主要适合个人 VPS 自用，不是面板，也不是多用户管理系统。
-
+bash <(curl -fsSL https://raw.githubusercontent.com/Nekonanda/proxy-suite-debian/main/proxy-suite.sh)
+一键安装命令（根据你的需求选择不同的协议，复制不要漏字符）
 ⸻
 
 新手快速开始
