@@ -57,8 +57,9 @@ TROJAN_LINE="$(first_scheme /root/trojan-client.txt trojan 'insecure=1|allowInse
 [ -n "$TROJAN_LINE" ] || TROJAN_LINE="$(first_scheme /root/trojan-client.txt trojan)"
 add_line "$TROJAN_LINE"
 
-# XHTTP 不放进推荐订阅；如果以后想手动加入，再单独扩展
-# add_line "$(first_scheme /root/xray-xhttp-reality-client.txt vless)"
+# VLESS + XHTTP + REALITY
+# 如果已经安装过 XHTTP，就自动加入统一订阅。
+add_line "$(first_scheme /root/xray-xhttp-reality-client.txt vless)"
 
 awk 'NF && !seen[$0]++' "$TMP" > "$RAW_SUB"
 
