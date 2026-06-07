@@ -1,0 +1,36 @@
+{
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "YOUR-SERVER-IP-OR-DOMAIN",
+            "port": 9443,
+            "users": [
+              {
+                "id": "YOUR-UUID",
+                "encryption": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "reality",
+        "xhttpSettings": {
+          "path": "/xhttp-randompath"
+        },
+        "realitySettings": {
+          "serverName": "www.microsoft.com",
+          "fingerprint": "chrome",
+          "password": "YOUR-REALITY-PUBLIC-KEY",
+          "shortId": "YOUR-SHORT-ID",
+          "spiderX": "/random"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+server: hysteria2://password@example.com:20000-29999/?insecure=1&pinSHA256=replace_with_cert_fingerprint&obfs=salamander&obfs-password=replace_with_obfs_password
+
+transport:
+  udp:
+    # 端口跳跃随机间隔，官方要求至少 5s。
+    minHopInterval: 15s
+    maxHopInterval: 45s
+
+socks5:
+  listen: 127.0.0.1:1080
+  disableUDP: false
+
+http:
+  listen: 127.0.0.1:8080

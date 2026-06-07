@@ -1,0 +1,6 @@
+.DS_Store
+*.log
+*.bak
+*.bak.*
+client.env
+hysteria2-client.txt

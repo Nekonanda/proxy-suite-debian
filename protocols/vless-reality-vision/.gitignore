@@ -1,0 +1,6 @@
+*.log
+*.bak
+.DS_Store
+.env
+client.env
+xray-reality-client.txt

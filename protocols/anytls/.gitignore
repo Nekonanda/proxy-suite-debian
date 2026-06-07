@@ -1,0 +1,5 @@
+*.log
+*.tmp
+.DS_Store
+/root/anytls-client.txt
+/etc/sing-box-anytls/state.env

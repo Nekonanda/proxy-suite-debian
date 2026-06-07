@@ -1,0 +1,34 @@
+{
+  "tag": "vless-xhttp-reality",
+  "port": 9443,
+  "protocol": "vless",
+  "settings": {
+    "users": [
+      {
+        "id": "YOUR-UUID",
+        "level": 0,
+        "email": "xhttp-reality@local"
+      }
+    ],
+    "decryption": "none"
+  },
+  "streamSettings": {
+    "network": "xhttp",
+    "security": "reality",
+    "xhttpSettings": {
+      "path": "/xhttp-randompath"
+    },
+    "realitySettings": {
+      "show": false,
+      "target": "www.microsoft.com:443",
+      "xver": 0,
+      "serverNames": ["www.microsoft.com"],
+      "privateKey": "YOUR-REALITY-PRIVATE-KEY",
+      "shortIds": ["YOUR-SHORT-ID"]
+    }
+  },
+  "sniffing": {
+    "enabled": true,
+    "destOverride": ["http", "tls", "quic"]
+  }
+}

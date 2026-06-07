@@ -1,0 +1,41 @@
+{
+  "log": {
+    "disabled": false,
+    "level": "info",
+    "timestamp": true
+  },
+  "inbounds": [
+    {
+      "type": "tuic",
+      "tag": "tuic5-in",
+      "listen": "::",
+      "listen_port": 10443,
+      "users": [
+        {
+          "name": "tuic5",
+          "uuid": "00000000-0000-0000-0000-000000000000",
+          "password": "replace-with-strong-password"
+        }
+      ],
+      "congestion_control": "bbr",
+      "auth_timeout": "3s",
+      "zero_rtt_handshake": false,
+      "heartbeat": "10s",
+      "tls": {
+        "enabled": true,
+        "certificate_path": "/etc/sing-box-tuic/certs/server.crt",
+        "key_path": "/etc/sing-box-tuic/certs/server.key",
+        "alpn": ["h3"]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct"
+    }
+  ],
+  "route": {
+    "final": "direct"
+  }
+}

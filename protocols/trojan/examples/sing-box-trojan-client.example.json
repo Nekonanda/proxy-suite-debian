@@ -1,0 +1,12 @@
+{
+  "type": "trojan",
+  "tag": "trojan-out",
+  "server": "203.0.113.10",
+  "server_port": 12443,
+  "password": "CHANGE_ME",
+  "tls": {
+    "enabled": true,
+    "server_name": "www.bing.com",
+    "insecure": true
+  }
+}

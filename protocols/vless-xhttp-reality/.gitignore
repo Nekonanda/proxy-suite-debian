@@ -1,0 +1,9 @@
+*.bak
+*.log
+*.tmp
+.DS_Store
+/root/
+client-outbound-xhttp-reality.json
+xray-xhttp-reality-client.txt
+all-proxy-subscription.txt
+all-proxy-subscription.b64

@@ -1,0 +1,18 @@
+{
+  "type": "tuic",
+  "tag": "tuic5-out",
+  "server": "YOUR_SERVER_IP",
+  "server_port": 10443,
+  "uuid": "00000000-0000-0000-0000-000000000000",
+  "password": "replace-with-password",
+  "congestion_control": "bbr",
+  "udp_relay_mode": "native",
+  "zero_rtt_handshake": false,
+  "heartbeat": "10s",
+  "tls": {
+    "enabled": true,
+    "server_name": "www.bing.com",
+    "insecure": true,
+    "alpn": ["h3"]
+  }
+}

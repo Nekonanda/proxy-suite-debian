@@ -1,0 +1,24 @@
+# generated secrets / runtime outputs
+*client.txt
+*subscription*.txt
+*subscription*.b64
+*.key
+*.pem
+*.crt
+*.csr
+*.p12
+*.pfx
+config.json.local
+config.yaml.local
+.env
+*.env
+
+# local archives / OS files
+*.zip
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+.idea/
+*.swp

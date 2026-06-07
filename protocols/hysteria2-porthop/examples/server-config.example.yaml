@@ -1,0 +1,41 @@
+listen: :20000-29999
+
+tls:
+  cert: /etc/hysteria/certs/hysteria2-selfsigned.crt
+  key: /etc/hysteria/certs/hysteria2-selfsigned.key
+  sniGuard: disable
+
+auth:
+  type: password
+  password: change_me_to_a_long_random_password
+
+obfs:
+  type: salamander
+  salamander:
+    password: change_me_to_a_long_random_obfs_password
+
+quic:
+  initStreamReceiveWindow: 26843545
+  maxStreamReceiveWindow: 26843545
+  initConnReceiveWindow: 67108864
+  maxConnReceiveWindow: 67108864
+  maxIdleTimeout: 30s
+  maxIncomingStreams: 1024
+  disablePathMTUDiscovery: false
+
+disableUDP: false
+udpIdleTimeout: 60s
+
+resolver:
+  type: udp
+  udp:
+    addr: 1.1.1.1:53
+    timeout: 4s
+
+masquerade:
+  type: proxy
+  proxy:
+    url: https://www.bing.com/
+    rewriteHost: true
+    insecure: false
+    xForwarded: false
