@@ -217,22 +217,6 @@ proxy-suite-debian/
 
 无域名模式下，部分协议会使用自签证书，客户端需要允许不安全证书。
 
-⸻
-
-不要上传这些文件
-
-下面这些文件可能包含真实 IP、UUID、密码、私钥或订阅 token，不要上传到 GitHub：
-
-/root/*client.txt
-/root/all-proxy-subscription.txt
-/root/all-proxy-subscription.b64
-/etc/proxy-subscription/token
-/usr/local/etc/xray/config.json
-/etc/sing-box-*/config.json
-/etc/shadowsocks-rust/config.json
-
-⸻
-
 已知不足
 
 * 目前没有统一总安装菜单。
