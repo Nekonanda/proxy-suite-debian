@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-apt update
-apt install -y nginx curl openssl coreutils
-
 STATE_DIR="/etc/proxy-subscription"
 WEB_DIR="/var/www/proxy-subscription"
 TOKEN_FILE="$STATE_DIR/token"
+
+apt update
+apt install -y nginx curl openssl coreutils
 
 mkdir -p "$STATE_DIR" "$WEB_DIR"
 
@@ -18,12 +18,53 @@ fi
 TOKEN="$(cat "$TOKEN_FILE")"
 RAW_SUB="$WEB_DIR/${TOKEN}-all.txt"
 B64_SUB="$WEB_DIR/${TOKEN}-all.b64"
+TMP="$(mktemp)"
+trap 'rm -f "$TMP"' EXIT
 
-grep -hEo '(vless|hysteria2|hy2|ss|tuic|anytls|trojan)://[^[:space:]]+' /root/*client.txt 2>/dev/null \
-  | awk 'NF && !seen[$0]++' > "$RAW_SUB"
+add_line() {
+  local line="${1:-}"
+  [ -n "$line" ] && printf '%s\n' "$line" >> "$TMP"
+}
+
+first_scheme() {
+  local file="$1"
+  local scheme="$2"
+  local prefer="${3:-}"
+
+  [ -f "$file" ] || return 0
+
+  if [ -n "$prefer" ]; then
+    grep -hE "^${scheme}://" "$file" | grep -Ei "$prefer" | head -n1 || true
+  else
+    grep -hE "^${scheme}://" "$file" | head -n1 || true
+  fi
+}
+
+add_line "$(first_scheme /root/xray-reality-client.txt vless)"
+
+HY2_LINE="$(first_scheme /root/hysteria2-client.txt hysteria2)"
+[ -n "$HY2_LINE" ] || HY2_LINE="$(first_scheme /root/hysteria2-client.txt hy2)"
+add_line "$HY2_LINE"
+
+add_line "$(first_scheme /root/shadowsocks2022-client.txt ss)"
+add_line "$(first_scheme /root/tuic5-client.txt tuic)"
+
+ANYTLS_LINE="$(first_scheme /root/anytls-client.txt anytls 'insecure=1|allowInsecure=1|allow_insecure=1|skip')"
+[ -n "$ANYTLS_LINE" ] || ANYTLS_LINE="$(first_scheme /root/anytls-client.txt anytls)"
+add_line "$ANYTLS_LINE"
+
+TROJAN_LINE="$(first_scheme /root/trojan-client.txt trojan 'insecure=1|allowInsecure=1|allow_insecure=1|skip')"
+[ -n "$TROJAN_LINE" ] || TROJAN_LINE="$(first_scheme /root/trojan-client.txt trojan)"
+add_line "$TROJAN_LINE"
+
+# XHTTP 不放进推荐订阅；如果以后想手动加入，再单独扩展
+# add_line "$(first_scheme /root/xray-xhttp-reality-client.txt vless)"
+
+awk 'NF && !seen[$0]++' "$TMP" > "$RAW_SUB"
 
 if [ ! -s "$RAW_SUB" ]; then
-  echo "没有收集到节点链接。"
+  echo "错误：没有收集到任何节点链接。"
+  echo "请先安装至少一个协议。"
   ls -lah /root/*client.txt 2>/dev/null || true
   exit 1
 fi
@@ -39,7 +80,7 @@ for f in /etc/nginx/sites-enabled/* /etc/nginx/conf.d/*.conf; do
   [ -e "$f" ] || continue
   [ "$f" = "/etc/nginx/conf.d/proxy-subscription.conf" ] && continue
 
-  if grep -qE 'listen .*80.*default_server' "$f" 2>/dev/null; then
+  if grep -qE 'listen[[:space:]]+.*80.*default_server' "$f" 2>/dev/null; then
     echo "备份并停用冲突 nginx 配置：$f"
     mv "$f" "$BACKUP_DIR/$(basename "$f").bak"
   fi

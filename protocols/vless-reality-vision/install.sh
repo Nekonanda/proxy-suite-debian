@@ -456,12 +456,12 @@ EOF
   [[ -n "$DOMAIN" ]] && server_name="$DOMAIN _"
   local ipv6_listen=""
   if ipv6_enabled; then
-    ipv6_listen="    listen [::]:80 default_server;"
+    ipv6_listen="    listen [::]:80;"
   fi
 
   cat > "$NGINX_SITE" <<EOF
 server {
-    listen 80 default_server;
+    listen 80;
 ${ipv6_listen}
     server_name ${server_name};
 

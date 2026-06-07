@@ -162,7 +162,7 @@ install_sing_box() {
   local arch version url tmp
   arch="$(arch_for_singbox)"
   tmp="$(mktemp -d)"
-  trap 'rm -rf "$tmp"' RETURN
+  trap '[[ -n "${tmp:-}" ]] && rm -rf "$tmp"' RETURN
 
   log "从 SagerNet/sing-box GitHub Releases 获取最新版。"
   version="$(curl -fsSL https://api.github.com/repos/SagerNet/sing-box/releases/latest | python3 -c 'import json,sys; print(json.load(sys.stdin)["tag_name"].lstrip("v"))')"

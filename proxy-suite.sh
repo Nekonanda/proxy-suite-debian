@@ -171,7 +171,7 @@ install_xhttp_reality() {
 
 install_recommended() {
   green "将安装推荐组合：VLESS REALITY、HY2、SS2022、TUIC5、AnyTLS、Trojan。"
-  yellow "VLESS + XHTTP + REALITY 比较新，推荐单独测试，所以不会包含在推荐组合里。"
+  yellow "不会安装 VLESS + XHTTP + REALITY；XHTTP 比较新，需要的话请单独选 7。"
   read -r -p "确认开始？[y/N] " ans
   [[ "${ans,,}" == "y" ]] || return 0
 

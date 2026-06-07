@@ -179,7 +179,7 @@ install_shadowsocks_rust() {
   local target archive_url sha_url tmp archive extract_dir ssserver_path ssurl_path sslocal_path
   target="$(arch_target)"
   tmp="$(mktemp -d)"
-  trap 'rm -rf "$tmp"' RETURN
+  trap '[[ -n "${tmp:-}" ]] && rm -rf "$tmp"' RETURN
 
   log "从 shadowsocks-rust GitHub Releases 下载最新 ${target} 预编译包。"
   local api_json
